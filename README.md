@@ -36,8 +36,11 @@ Download an archive£¬ unpack it to a place accessible from command line. The e
 
 - Just launch **etcminer** either from a Windows cmd or Linux console. For help, please run `etcminer --help`
 
-- Please try different schemes if you are not sure which scheme is supported by the pool.	
-	And see [pool example](docs/POOL_EXAMPLES_ETC.md) for pool usage.
+- Please try different schemes if you are not sure which scheme is supported by the pool. And see [pool example](docs/POOL_EXAMPLES_ETC.md) for pool usage.
+    - Specifically, for CUDA GPU and pool `f2pool.com`, use the following command line under Linux (as of 2025.5.1): `./etcminer -U -P stratum1+tcp://<user_name>.<worker_id>@etc.f2pool.com:8118`. Note that:
+        - `<user_name>` is registered user name on f2pool.com, and `<worker_id>` can be anything(e.g. `1`).
+        - Pay attention that there is a `1` in `stratum1` part in the pool connection URL. I don't know why yet, but this piece of info came from [here](https://github.com/ethereum-mining/ethminer/issues/1690#issuecomment-440959193)
+        - The domain name and port number `etc.f2pool.com` is the general one; For specific regions, check alternatives [here](https://f2pool.io/mining/guides/how-to-mine-ethereum-classic/)
 
 - In windows, if you cannot find your AMD cards:
 	1. Go to `C:\Windows\System32` and search for `amdocl64.dll`, and then get the .dll file's path, just call it `theDllPath`
