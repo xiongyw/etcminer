@@ -266,7 +266,7 @@ void ethash_light_delete(ethash_light_t light)
 
 uint64_t static etchash_calc_epoch(uint64_t const block_number)
 {
-    uint64_t epochLen = block_number >= ETCHASH_FORK_BLOCK ? ETHASH_EPOCH_LENGTH_NEW: ETHASH_EPOCH_LENGTH;    
+    uint64_t epochLen = block_number >= ETCHASH_FORK_BLOCK ? ETHASH_EPOCH_LENGTH_NEW: ETHASH_EPOCH_LENGTH;
     return block_number / epochLen;
 }
 
@@ -294,3 +294,22 @@ ethash_return_value_t ethash_light_compute(
 	uint64_t full_size = ethash_get_datasize(light->block_number);
 	return ethash_light_compute_internal(light, full_size, header_hash, nonce);
 }
+
+/*
+ * added(bruin, 2025.5.3): compute ethash with full dag/dataset
+ */
+ethash_return_value_t ethash_full_compute(
+	ethash_h256_t const header_hash,
+	uint64_t nonce,
+	const uint8_t* dag,
+	uint64_t dag_bytes)
+{
+	ethash_return_value_t ret;
+	node const* full_nodes = (node*)dag;
+	ret.success = true;
+	if (!ethash_hash(&ret, full_nodes, NULL, dag_bytes, header_hash, nonce)) {
+		ret.success = false;
+	}
+	return ret;
+}
+
