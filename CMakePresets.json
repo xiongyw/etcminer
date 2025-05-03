@@ -1,0 +1,42 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Default Config (No GPU)",
+      "description": "Default configuration with both CUDA and OpenCL disabled",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/default",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ETHASHCL": "OFF",
+        "ETHASHCUDA": "OFF",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "cuda",
+      "displayName": "CUDA Config",
+      "description": "Configuration with only CUDA enabled",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/cuda",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ETHASHCL": "OFF",
+        "ETHASHCUDA": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "configurePreset": "default"
+    },
+    {
+      "name": "cuda",
+      "configurePreset": "cuda"
+    }
+  ]
+}
+
