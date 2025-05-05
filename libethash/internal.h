@@ -79,6 +79,19 @@ uint64_t ethash_get_datasize(uint64_t const block_number);
 uint64_t ethash_get_cachesize(uint64_t const block_number);
 static uint64_t etchash_calc_epoch(uint64_t const block_number);
 
+/*
+ * added(bruin, 2025.5.3): compute ethash with full dag/dataset
+ */
+struct ethash_dag {
+	void* dag;
+	uint64_t dag_bytes;
+	uint64_t block_number;
+};
+typedef struct ethash_dag* ethash_dag_t;
+
+ethash_dag_t ethash_dag_new(uint64_t block_number);
+void ethash_dag_delete(ethash_dag_t dag);
+
 ethash_return_value_t ethash_full_compute(
 	ethash_h256_t const header_hash,
 	uint64_t nonce,

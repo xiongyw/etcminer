@@ -298,6 +298,35 @@ ethash_return_value_t ethash_light_compute(
 /*
  * added(bruin, 2025.5.3): compute ethash with full dag/dataset
  */
+ethash_dag_t ethash_dag_new(uint64_t block_number)
+{
+	/* first generate cache */
+	ethash_light_t cache = ethash_light_new(block_number);
+
+	/* alloc dag */
+	ethash_dag_t dag = (ethash_dag_t)calloc(sizeof(struct ethash_dag), 1);
+	assert(dag);
+	dag->dag_bytes = ethash_get_datasize(block_number);
+	dag->dag = (void*)aligned_alloc(ETHASH_MIX_BYTES, dag->dag_bytes);
+	assert(dag->dag);
+	/* generate dag items */
+	uint64_t nodes = dag->dag_bytes / (NODE_WORDS * 4);
+	for (uint64_t i = 0; i < nodes; ++i) {
+		ethash_calculate_dag_item((node*)((uint32_t*)dag->dag + NODE_WORDS * i), i, cache);
+	}
+
+	ethash_light_delete(cache);
+	return dag;
+}
+
+void ethash_dag_delete(ethash_dag_t dag)
+{
+	if (dag->dag) {
+		free(dag->dag);
+	}
+	free(dag);
+}
+
 ethash_return_value_t ethash_full_compute(
 	ethash_h256_t const header_hash,
 	uint64_t nonce,

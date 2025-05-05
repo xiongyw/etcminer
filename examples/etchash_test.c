@@ -6,6 +6,7 @@
 
 #include "ethash.h"
 #include "internal.h"
+#include "sha3.h"
 
 #define DAG_PAGE_BYTES   128
 #define DAG_NODE_BYTES   64
@@ -73,6 +74,22 @@ int main(int argc, char* argv[]) {
         printf("Computation failed\n");
     }
 
+	/* test cache */
+	struct ethash_h256 hash256;
+	printf("-----------------------------------\n");
+	ethash_light_t cache = ethash_light_new(g_block_height);
+	printf("cache bytes: %ld\n", cache->cache_size);
+	SHA3_256(&hash256, cache->cache, cache->cache_size);
+	hex_dump(hash256.b, 32, "keccak256(cache): ");
+	ethash_light_delete(cache);
+
+	/* test dat */
+	printf("-----------------------------------\n");
+	ethash_dag_t dag = ethash_dag_new(g_block_height);
+	printf("dag bytes: %ld\n", dag->dag_bytes);
+	SHA3_256(&hash256, dag->dag, dag->dag_bytes);
+	hex_dump(hash256.b, 32, "keccak256(dag): ");
+	ethash_dag_delete(dag);
 
 	free(g_dag);
     return 0;
