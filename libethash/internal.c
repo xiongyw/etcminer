@@ -23,6 +23,8 @@
 #include <assert.h>
 #include <inttypes.h>
 #include <stddef.h>
+#include <stdlib.h>  // aligned_alloc()
+
 #include "ethash.h"
 #include "fnv.h"
 #include "endian.h"
