@@ -14,7 +14,7 @@
 #define HASH512_BYTES    64
 #define HASH256_BYTES    32
 
-const static uint8_t g_fake_data[HASH256_BYTES] = {
+static const uint8_t g_fake_data[HASH256_BYTES] = {
 	0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F, 0x7A, 0x8B,
 	0x9C, 0xAD, 0xBE, 0xCF, 0xD0, 0xE1, 0xF2, 0x03,
 	0x14, 0x25, 0x36, 0x47, 0x58, 0x69, 0x7A, 0x8B,
@@ -40,7 +40,10 @@ void hex_dump(uint8_t* data, uint64_t bytes, const char* prefix)
 	free(buf);
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
+	(void)argc;
+	(void)argv;
 
     printf("Block height: %lu\n", g_block_height);
 
