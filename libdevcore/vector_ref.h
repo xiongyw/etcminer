@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <vector>
 #include <string>
+#include <cstdint> // uint8_t
 
 namespace dev
 {
