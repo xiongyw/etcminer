@@ -264,7 +264,7 @@ void ethash_light_delete(ethash_light_t light)
 	free(light);
 }
 
-uint64_t static etchash_calc_epoch(uint64_t const block_number)
+uint64_t etchash_calc_epoch(uint64_t const block_number)
 {
     uint64_t epochLen = block_number >= ETCHASH_FORK_BLOCK ? ETHASH_EPOCH_LENGTH_NEW: ETHASH_EPOCH_LENGTH;
     return block_number / epochLen;
