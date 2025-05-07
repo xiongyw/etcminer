@@ -1,5 +1,5 @@
 if (NOT MSVC)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -Wall -Wno-unknown-pragmas -Wextra -Wno-error=parentheses -pedantic")
 endif()
 
 set(FILES
