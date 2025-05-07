@@ -114,7 +114,7 @@ int main(int argc, char** argv)
 			}
 		}
 	}
-	catch (BadArgument ex)
+	catch (const BadArgument& ex)
 	{
 		std::cerr << "Error: " << ex.what() << "\n";
 		exit(-1);
